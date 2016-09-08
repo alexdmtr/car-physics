@@ -1,0 +1,192 @@
+<html>
+
+<head>
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script><script type="text/javascript">
+
+        class Vector2
+        {
+            constructor(x, y)
+            {
+                this.x = x;
+                this.y = y;
+
+                //console.log("(x = " + this.x + ", y = " + this.y + ")");
+            }
+
+        }
+    
+
+       function loop()
+            { 
+                var fy = 0;
+                
+                /* Weight force, which only affects the y-direction (because that's the direction gravity points). */
+                fy += m * 9.81;
+                
+                /* Air resistance force; this would affect both x- and y-directions, but we're only looking at the y-axis in this example. */
+                fy += -1 * 0.5 * rho * C_d * A * vy * vy;
+                
+                /* Verlet integration for the y-direction */
+                dy = vy * dt + (0.5 * ay * dt * dt);
+                /* The following line is because the math assumes meters but we're assuming 1 cm per pixel, so we need to scale the results */
+
+                y += dy * 100;
+                new_ay = fy / m;
+                avg_ay = 0.5 * (new_ay + ay);
+                vy += avg_ay * dt;
+                
+                /* Let's do very simple collision detection */
+                if (y + r > height && vy > 0)
+                {
+                    /* This is a simplification of impulse-momentum collision response. e should be a negative number, which will change the velocity's direction. */
+                    vy *= e; 
+                    /* Move the ball back a little bit so it's not still "stuck" in the wall. */
+                    y = height - r;                        
+                }
+                
+                carPosition.x += dy * 20;
+                wheelRotation += dy ;
+                draw();
+
+
+        }
+    
+    function drawText(ctx, text, position)
+    {
+        ctx.font = "15px Arial";
+        ctx.textAlign = "center";   
+        ctx.fillText(text,position.x, position.y);
+    }
+    function drawImageCentered(image, position, rotation, width, height)
+    {
+        ctx.translate(position.x, position.y);
+        ctx.rotate(rotation);
+
+        ctx.drawImage(image, - width / 2, - height / 2, width, height);
+
+        ctx.rotate(-rotation);
+
+        ctx.translate(-position.x, -position.y);
+    }
+    function drawCar()
+    {
+         drawImageCentered(carImage, carPosition, 0, 300, 78);
+
+     
+        var leftWheelPosition = new Vector2(carPosition.x  - 82, carPosition.y + 30);
+        var rightWheelPosition = new Vector2(carPosition.x + 95, carPosition.y + 30);
+
+        //ctx.drawImage(wheelImage, leftWheelPosition.x, leftWheelPosition.y, 55, 55);
+        //ctx.drawImage(wheelImage, rightWheelPosition.x, leftWheelPosition.y, 55, 55);
+        drawImageCentered(wheelImage, leftWheelPosition, wheelRotation, 55, 55);
+        drawImageCentered(wheelImage, rightWheelPosition, wheelRotation, 55, 55);
+    }
+
+    function canvas_arrow(context, fromx, fromy, tox, toy){
+    var headlen = 10;   // length of head in pixels
+    var angle = Math.atan2(toy-fromy,tox-fromx);
+    context.moveTo(fromx, fromy);
+    context.lineTo(tox, toy);
+    context.lineTo(tox-headlen*Math.cos(angle-Math.PI/6),toy-headlen*Math.sin(angle-Math.PI/6));
+    context.moveTo(tox, toy);
+    context.lineTo(tox-headlen*Math.cos(angle+Math.PI/6),toy-headlen*Math.sin(angle+Math.PI/6));
+}
+
+    function draw()
+    {
+        ctx.clearRect(0, 0, width, height);
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2, true);
+
+        ctx.fillStyle = 'red';
+        ctx.fill();
+        ctx.closePath();
+
+
+        carImage = $("#car").get(0);
+        wheelImage = $("#wheel").get(0);
+
+        drawCar();
+
+
+        ctx.fillStyle = 'black';
+        drawText(ctx, "What's not to love?", new Vector2(carPosition.x, carPosition.y + 25));
+
+        ctx.beginPath();
+        canvas_arrow(ctx, x, y, carPosition.x, carPosition.y + 50);
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+    function play()
+    {
+            x = 200,
+            y = 0,
+            vy = 0;
+            ay = 0;
+            wheelRotation = 0;
+
+        clearInterval(animationInterval);
+        animationInterval = setInterval(loop, dt * 1000);
+    }
+
+
+
+        $(document).ready(function()
+        {
+            carPosition = new Vector2(200, 200);
+
+            var canvas = $("#canvas").get(0);
+            ctx = canvas.getContext('2d');
+            height = 400,
+            width =  800,
+           
+            ay = 0,
+            m = 0.1,    // Ball mass in kg
+            r = 10,     // Ball radius in cm, or pixels.
+            dt = 0.016,  // Time step.
+            e = -0.5    ,   // Coefficient of restitution ("bounciness")
+            rho = 1.2,  // Density of air. Try 1000 for water.
+            C_d = 0.47, // Coeffecient of drag for a ball
+            A = Math.PI * r * r / 10000 // Frontal area of the ball; divided by 10000 to compensate for the 1px = 1cm relation
+            ;
+
+            animationInterval = 0;
+
+        /* A real project should use requestAnimationFrame, and you should time the frame rate and pass a variable "dt" to your physics function. This is just a simple brute force method of getting it done. */
+    //setInterval(loop, dt * 1000);
+
+    })
+       
+    
+
+    </script>
+    
+</head>
+
+<body>
+    <div class="container">
+        <div class="alert alert-success">
+            <p>Awesome text</p>
+        </div>
+        <h2>Smooth as fuck animations</h2>
+
+
+        <canvas id="canvas" height="400" width="800" style="border:5px"></canvas>
+    
+        <button class="btn btn-primary" onclick="play()">Play</button>
+
+        <img id="car" src="http://i.imgur.com/Xb3oETf.png" style="width:300; height:78" hidden="true"/>
+        <img id="wheel" src="http://i.imgur.com/DXIT9yw.png" style="width:55; height:55" hidden="true"/>
+    </div>
+</body>
+
+</html>
