@@ -2,7 +2,7 @@ extends layout
 
 block content
   .container
-    .form-group
+    .form-group#menu
       .row
         .col-lg-3
           label(for='inclinedPlaneRotation') Unghiul planului (grade):
@@ -27,8 +27,13 @@ block content
           p
             input#showForces(type='checkbox', name='showForces')
             |                         Vizualizare forte
-          br
-          button.btn.btn-primary(onclick='play()') Play
+          p
+            input#autoAcc(type='checkbox', name='autoAcc', checked)
+            |     Accelerare automata
+          
+            button.btn.btn-primary(onclick='play()', style='margin-left:15px') Play
+
+            
       img#car(src='images/car.png', style='width:300; height:78', hidden='true')
       img#wheel(src='images/wheel.png', style='width:55; height:55', hidden='true')
   .container-fluid

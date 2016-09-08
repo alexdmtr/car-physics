@@ -572,6 +572,7 @@ class Vector2
     
     function play()
     {
+        // $("#menu").hide(2000);
             startedRecording = false;
             rightWheelOnPlane = true;
             yHistory = [];
@@ -646,7 +647,7 @@ class Vector2
                 showForces = this.checked;
             })
 
-            pressedAcceleration = false;
+            pressedAcceleration = true;
             $(document).keydown(function(event){
                 var x = String.fromCharCode(event.which); 
                 if (x == 'a' || x == 'A')
@@ -656,7 +657,7 @@ class Vector2
             });
 
             $(document).keyup(function(event) {
-                pressedAcceleration = false;
+                // pressedAcceleration = false;
             });
 
             windowWidth = $(window).width();
