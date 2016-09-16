@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Mecanica unei masini in miscare' });
+  res.render('about', { title: 'Mecanica unei masini in miscare' });
 });
 
 module.exports = router;
