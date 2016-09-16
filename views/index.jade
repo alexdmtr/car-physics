@@ -1,38 +1,40 @@
 extends layout
 
 block content
-  .form-group#menu
-    .row
-      .col.s3
-        label(for='inclinedPlaneRotation') Unghiul planului (grade):
-        input#inclinedPlaneRotation.form-control(type='number', step='0.01', min='25', max='45', name='inclinedPlaneRotation', value='30')
-        label(for='rho') Densitatea aerului:
-        input#rho.form-control(type='number', step='0.01', name='rho', value='1.2')
-        label(for='frictionCoef') Coeficientul de frecare:
-        input#frictionCoef.form-control(type='number', step='0.01', name='frictionCoef', value='0.30')
-      .col.s3
-        label(for='carMass') Masa masinii [kg/m^3]:
-        input#carMass.form-control(type='number', step='1', name='carMass', value='1500')
-        label(for='massSlider') Distributia de masa:
-        input#massSlider.form-control(type='number', name='massSlider', step='0.01', min='0.25', max='0.75', value='0.6')
-        label(for='enginePower') Puterea motorului [kW]
-        input#enginePower.form-control(type='number', name='enginePower', value='73.54')
-      .col.s6
-        h3 Informatii
-        p Apasati (si tineti apasat) tasta A pentru a accelera masina.
-        p
-          input#isWater(type='checkbox', name='isWater')
-          label(for='isWater')                         Exista apa?
-        p
-          input#showForces(type='checkbox', name='showForces')
-          label(for='showForces')        Vizualizare forte
-        p
-          input#autoAcc(type='checkbox', name='autoAcc', checked)
-          label(for='autoAcc')     Accelerare automata
-        
-          button.btn.btn-primary(onclick='play()', style='margin-left:15px') Play
-
+  .container
+    .form-group#menu
+      .row
+        .col.s3
+          label(for='inclinedPlaneRotation') Unghiul planului (grade):
+          input#inclinedPlaneRotation.form-control(type='number', step='0.01', min='25', max='45', name='inclinedPlaneRotation', value='30')
+          label(for='rho') Densitatea aerului:
+          input#rho.form-control(type='number', step='0.01', name='rho', value='1.2')
+          label(for='frictionCoef') Coeficientul de frecare:
+          input#frictionCoef.form-control(type='number', step='0.01', name='frictionCoef', value='0.30')
+        .col.s3
+          label(for='carMass') Masa masinii [kg/m^3]:
+          input#carMass.form-control(type='number', step='1', name='carMass', value='1500')
+          label(for='massSlider') Distributia de masa:
+          input#massSlider.form-control(type='number', name='massSlider', step='0.01', min='0.25', max='0.75', value='0.6')
+          label(for='enginePower') Puterea motorului [kW]
+          input#enginePower.form-control(type='number', name='enginePower', value='73.54')
+        .col.s6
+          h3 Informatii
+          p Apasati (si tineti apasat) tasta A pentru a accelera masina.
+          p
+            input#isWater(type='checkbox', name='isWater')
+            label(for='isWater')                         Exista apa?
+          p
+            input#showForces(type='checkbox', name='showForces')
+            label(for='showForces')        Vizualizare forte
+          p
+            input#autoAcc(type='checkbox', name='autoAcc', checked)
+            label(for='autoAcc')     Accelerare automata
           
-    img#car(src='images/car.png', style='width:300; height:78', hidden='true')
-    img#wheel(src='images/wheel.png', style='width:55; height:55', hidden='true')
-  canvas#canvas(width='1000', height='800', style='width:100%; height:auto')
+            button.btn.btn-primary(onclick='play()', style='margin-left:15px') Play
+
+            
+      img#car(src='images/car.png', style='width:300; height:78', hidden='true')
+      img#wheel(src='images/wheel.png', style='width:55; height:55', hidden='true')
+  .container-fluid
+    canvas#canvas(width='1000', height='800', style='width:100%; height:auto')
