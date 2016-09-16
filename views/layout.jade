@@ -1,33 +1,12 @@
 doctype html  
 html  
   head
-    //- link(rel='stylesheet', href='css/bootstrap.css')
-    //- link(rel='stylesheet', href='css/bootstrap-theme.css')
-    
-    link(rel='stylesheet' href='css/materialize.min.css' media='screen, projection')
-    link(rel='stylesheet', href='css/style.css')
-    //- link(rel='stylesheet', href='css/simple-sidebar.css')
+    link(rel='stylesheet', href='stylesheets/bootstrap.css')
+    link(rel='stylesheet', href='stylesheets/bootstrap-theme.css')
+    link(rel='stylesheet', href='stylesheets/style.css')
     script(src='javascripts/jquery-1.12.3.min.js')
-    script(src='javascripts/materialize.min.js')
+    script(src='javascripts/bootstrap.js')
     script(src='javascripts/script.js', type='text/javascript')
-    title=title
+    title title
   body
-    nav
-      .container
-        .nav-wrapper
-          ul.nav-mobile.left.hide-on-med-and-down
-            li
-              a(href='/') Animatie
-            li
-              a(href='/about') Despre
-    .container
-      block content
-    //- #wrapper
-    //-   #sidebar-wrapper
-    //-     ul.sidebar-nav
-    //-       li.sidebar-brand
-    //-         a(href='/') Animatie
-    //-       li
-    //-         a(href='/about') Despre
-    //-   #page-content-wrapper
-    //-     block content
+    block content
