@@ -405,7 +405,7 @@ class Vector2
        function loop(dt)
             { 
                 forces = [];
-
+                isWater = $("#isWater").get(0).checked;
 
                 // both wheels on the plane
                 var centerOfMass = car.position.add(Vector2.fromAngle(car.rotation).multiply(-(1-massSlider)*car.size.width/2)).add(Vector2.fromAngle(car.rotation).multiply(massSlider*car.size.width/2));
@@ -459,7 +459,7 @@ class Vector2
                 {
                     forces.push(normalRight);
                 
-                    if (pressedAcceleration)
+                    if (pressedAcceleration || $("#autoAcc").get(0).checked)
                     {
                         forces.push(traction);
                     }
@@ -573,56 +573,56 @@ class Vector2
     function play()
     {
         // $("#menu").hide(2000);
-            startedRecording = false;
-            rightWheelOnPlane = true;
-            yHistory = [];
-            thetaHistory = [];
+        startedRecording = false;
+        rightWheelOnPlane = true;
+        yHistory = [];
+        thetaHistory = [];
 
-            carImage = $("#car").get(0);
-            wheelImage = $("#wheel").get(0);
+        carImage = $("#car").get(0);
+        wheelImage = $("#wheel").get(0);
 
 
-            rho = $("#rho").val();
-            frictionCoef =$("#frictionCoef").val();
+        rho = $("#rho").val();
+        frictionCoef =$("#frictionCoef").val();
 
-            massSlider = $("#massSlider").val();
-            isWater = $("#isWater").get(0).checked;
+        massSlider = $("#massSlider").val();
+        isWater = $("#isWater").get(0).checked;
 
 
         width = ctx.canvas.width = window.innerWidth;
-           groundHeight = height - 150;
-            car = new Rigidbody(new Vector2(0, groundHeight - 78 / 2 - 20), 0, new Size(300, 78));
-            car.mass = $("#carMass").val();
+        groundHeight = height - 150;
+        car = new Rigidbody(new Vector2(0, groundHeight - 78 / 2 - 20), 0, new Size(300, 78));
+        car.mass = $("#carMass").val();
 
 
 
 
 
-            leftWheel = new Rigidbody(new Vector2(-82, groundHeight - 55 / 2), 0, new Size(55, 55));
-            rightWheel = new Rigidbody(new Vector2(95, groundHeight - 55 / 2), 0, new Size(55, 55));
+        leftWheel = new Rigidbody(new Vector2(-82, groundHeight - 55 / 2), 0, new Size(55, 55));
+        rightWheel = new Rigidbody(new Vector2(95, groundHeight - 55 / 2), 0, new Size(55, 55));
+        
+        leftWheel.position = getLeftWheelPosition();
+        rightWheel.position = getRightWheelPosition();
+
+
+        cameraPosition = new Vector2(0, 0);
+        start = false;
+
+        passedPlane = false;
+        
+        planeLength = 1000;
+        inclinedPlane = [];
+        inclinedPlaneRotation = $("#inclinedPlaneRotation").val() * (Math.PI/180);
+        inclinedPlane.push(new Vector2(0, groundHeight));
+        inclinedPlane.push(new Vector2(planeLength, groundHeight-planeLength*Math.tan(inclinedPlaneRotation)));
+        inclinedPlane.push(new Vector2(planeLength, groundHeight));
+        inclinedPlane.push(new Vector2(0, groundHeight));
+
+        waterHeight = planeLength * Math.tan(inclinedPlaneRotation) * 0.5;
+
             
-            leftWheel.position = getLeftWheelPosition();
-            rightWheel.position = getRightWheelPosition();
-
-
-            cameraPosition = new Vector2(0, 0);
-            start = false;
-
-            passedPlane = false;
-            
-            planeLength = 1000;
-            inclinedPlane = [];
-            inclinedPlaneRotation = $("#inclinedPlaneRotation").val() * (Math.PI/180);
-            inclinedPlane.push(new Vector2(0, groundHeight));
-            inclinedPlane.push(new Vector2(planeLength, groundHeight-planeLength*Math.tan(inclinedPlaneRotation)));
-            inclinedPlane.push(new Vector2(planeLength, groundHeight));
-            inclinedPlane.push(new Vector2(0, groundHeight));
-
-            waterHeight = planeLength * Math.tan(inclinedPlaneRotation) * 0.5;
-
-                
-            car.rotation = -inclinedPlaneRotation;
-                window.requestAnimationFrame(stepSimulation);
+        car.rotation = -inclinedPlaneRotation;
+        window.requestAnimationFrame(stepSimulation);
        //     clearInterval(animationInterval);
      //       animationInterval = setInterval(loop, dt * 1000);
     }
@@ -647,7 +647,7 @@ class Vector2
                 showForces = this.checked;
             })
 
-            pressedAcceleration = $("#autoAcc").get(0).checked;
+            pressedAcceleration = false;
             $(document).keydown(function(event){
                 var x = String.fromCharCode(event.which); 
                 if (x == 'a' || x == 'A')
@@ -657,7 +657,7 @@ class Vector2
             });
 
             $(document).keyup(function(event) {
-                 pressedAcceleration = $("#autoAcc").get(0).checked;
+                 pressedAcceleration = false;
             });
 
             windowWidth = $(window).width();
