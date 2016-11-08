@@ -13,19 +13,20 @@ block content
           input#frictionCoef.form-control(type='number', step='0.01', name='frictionCoef', value='0.30')
         .col-lg-3
           label(for='carMass') Masa masinii [kg/m^3]:
-          input#carMass.form-control(type='number', step='1', name='carMass', value='1500')
+          input#carMass.form-control(type='number', step='1', name='carMass', value='1500', disabled=true)
           label(for='massSlider') Distributia de masa:
           input#massSlider.form-control(type='number', name='massSlider', step='0.01', min='0.25', max='0.75', value='0.6')
           label(for='enginePower') Puterea motorului [kW]
-          input#enginePower.form-control(type='number', name='enginePower', value='73.54')
+          input#enginePower.form-control(type='number', name='enginePower', value='73.54', disabled=true)
         .col-lg-6
           h3 Informatii
-          p Apasati (si tineti apasat) tasta A pentru a accelera masina.
+          p Proiect realizat de Alex Dumitru, Andrei Tosu si Ingrid Axinte. © 2016
+          p Prof. coordonator Andrei Craifaleanu. 
           p
-            input#isWater(type='checkbox', name='isWater')
+            input#isWater(type='checkbox', name='isWater', checked)
             |                         Exista apa?
           p
-            input#showForces(type='checkbox', name='showForces')
+            input#showForces(type='checkbox', name='showForces', checked)
             |                         Vizualizare forte
           p
             input#autoAcc(type='checkbox', name='autoAcc', checked)

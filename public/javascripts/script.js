@@ -647,7 +647,7 @@ class Vector2
                 showForces = this.checked;
             })
 
-            pressedAcceleration = true;
+            pressedAcceleration = $("#autoAcc").get(0).checked;
             $(document).keydown(function(event){
                 var x = String.fromCharCode(event.which); 
                 if (x == 'a' || x == 'A')
@@ -657,7 +657,7 @@ class Vector2
             });
 
             $(document).keyup(function(event) {
-                // pressedAcceleration = false;
+                 pressedAcceleration = $("#autoAcc").get(0).checked;
             });
 
             windowWidth = $(window).width();
