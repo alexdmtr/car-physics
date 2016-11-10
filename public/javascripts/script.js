@@ -563,6 +563,8 @@ class Vector2
             $("#canvas").fadeOut(2000, function() {
                 drawGraphs();
                 $("#canvas").fadeIn(1500);
+            $("#menu").show(2000);
+
             });
         }
         else
@@ -572,7 +574,7 @@ class Vector2
     
     function play()
     {
-        // $("#menu").hide(2000);
+        $("#menu").hide(2000);
         startedRecording = false;
         rightWheelOnPlane = true;
         yHistory = [];
@@ -634,6 +636,7 @@ class Vector2
             height = 800;
             width =  1000;
             //dt = 0.02;
+
 
 
             var canvas = $("#canvas").get(0);
