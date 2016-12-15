@@ -7,7 +7,7 @@
     <script src="javascripts/jquery-1.12.3.min.js"></script>
     <script src="javascripts/bootstrap.js"></script>
     <script src="javascripts/script.js" type="text/javascript"></script>
-    <title>Car physics</title>
+    <title>Mecanica unei masini aflate in miscare</title>
   </head>
   
   <body>
