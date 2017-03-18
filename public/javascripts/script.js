@@ -296,7 +296,7 @@ class Vector2
         cameraPosition = new Vector2(0, 0);
 
         drawGraph("y = y(t)", new Vector2(200, 500), new Size(400, 400), yHistory, true);
-        drawGraph("theta = theta(t)", new Vector2(800, 500), new Size(400, 400), thetaHistory);
+        drawGraph("θ =  θ(t)", new Vector2(800, 500), new Size(400, 400), thetaHistory);
 
 
         
