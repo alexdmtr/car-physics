@@ -10,7 +10,7 @@ function getTitle(title) {
 
 let nav = {
   'Animație': '/',
-  'Despre': '/about'
+  'Despre proiect': '/about'
 }
 
 /* GET home page. */
@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 
 /* GET about */
 router.get('/about', function(req, res) {
-  res.render('about', { title: getTitle('Despre'), nav, page:'/about'})
+  res.render('about', { title: getTitle('Despre proiect'), nav, page:'/about'})
 })
 
 module.exports = router;
