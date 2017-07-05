@@ -15,10 +15,7 @@ namespace car_physics.Controllers
 
         public IActionResult About()
         {
-            
             return View();
         }
-
-
     }
 }
