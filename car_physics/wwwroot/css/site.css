@@ -36,3 +36,16 @@ textarea {
         display: none;
     }
 }
+
+a {
+    color: #00B7FF;
+}
+
+
+ul.menu li {
+    display: inline;
+}
+
+menu input {
+    display: inline;
+}
