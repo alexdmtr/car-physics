@@ -21,14 +21,28 @@
 <body>
    <nav class='container'>
         <ul class="nav nav-tabs">
-            <li>@Html.ActionLink("Animație", "Index", "Home")</li>
-            <li>@Html.ActionLink("Despre proiect", "About", "Home")</li>
+            @{ 
+                var links = new Dictionary<string, string>();
+
+                links["Animație"] = "Index";
+                links["Despre proiect"] = "About";    
+            }
+            
+            @foreach (var label in links.Keys)
+            {
+                @if (label == (string)ViewData["Title"])
+                {
+                    <li class="active">@Html.ActionLink(label, links[label], "Home")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink(label, links[label], "Home")</li>
+                }
+            }
             <li></li>
         </ul>
     </nav>
-    <div class="container body-content">
-        @RenderBody()
-    </div>
+    @RenderBody()
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
